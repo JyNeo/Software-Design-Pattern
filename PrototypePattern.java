@@ -220,7 +220,7 @@ public class Client {
 }
 
 /****************************************************************************************************************/
-// 设计问题的解决方案
+// 应用实例的解决方案
 public class Notification implements  Cloneable {
     private String title;
     private String content;
