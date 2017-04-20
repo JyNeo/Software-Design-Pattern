@@ -95,7 +95,7 @@ public class XMLUtil {
 
 <?xml version="1.0"?>
 <config>
-    <className>SpringSkinFactory</className>
+    <className>ConcreteFactory1</className>
 </config>
 
 public class Client {
