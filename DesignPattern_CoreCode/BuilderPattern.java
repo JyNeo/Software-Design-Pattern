@@ -219,3 +219,102 @@ public class Client{
         Product product = director.construct();
     }
 }
+
+/****************************************************************************************************************/
+// 应用实例解决方案
+public class Document {
+	private String type;
+	private String name;
+	private String price;
+
+    public void setType(String type){
+        this.type = type;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
+    public void setPrice(String price){
+        this.price = price;
+    }
+    public String getType(){
+        return this.type;
+    }
+    public String getName(){
+        return this.name;
+    }
+    public String getPrice(){
+        return this.price;
+    }
+}
+
+// 在抽象建造者类中定义了文档的创建方法和返回方法
+public abstract class Builder {
+    // 创建文档对象
+	protected Document document = new Document();
+
+	public abstract void buildType();
+	public abstract void buildName();
+	public abstract void buildPrice();
+
+    // 返回文档对象
+	public Document getResult() {
+		return document;
+	}
+}
+
+// XML建造者的实现
+public class XMLBuilder extends Builder {
+    public void buildType() {
+        product.setType("type: xml");
+    }
+    public void buildName() {
+        product.setName("name: xml");
+    }
+    public void buildPrice() {
+        product.setPrice("price: xml");
+    }
+}
+
+// Json建造者的实现
+public class JsonBuilder extends Builder {
+    public void buildType() {
+        product.setType("type: json");
+    }
+    public void buildName() {
+        product.setName("name: json");
+    }
+    public void buildPrice() {
+        product.setPrice("price: json");
+    }
+}
+
+// 隔离客户与创建过程，控制文档的创建过程
+public class Director {
+	private Builder builder;
+
+    // 传入具体的文档建造者类型
+	public Director(Builder builder) {
+		this.builder = builder;
+	}
+
+	public void setBuilder(Builder builder) {
+		this.builder = builder;
+	}
+
+    // 文档构建与组装方法
+	public Document construct() {
+		builder.buildType();
+		builder.buildName();
+		builder.buildPrice();
+		return builder.getResult();
+	}
+}
+
+public class Client{
+    public static void main(String[] args) {
+
+        Builder builder = new XMLBuilder();
+        Director director = new Director(builder);
+        Document document = director.construct();
+    }
+}
